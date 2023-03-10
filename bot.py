@@ -31,12 +31,24 @@ async def set_regex(ctx, react, regex):
     """Define a new regex pattern
 
     Args:
-        ctx (Context): The context of the command
         regex (str): The new regex pattern
     """
     await ctx.respond("New regex pattern defined: ```\n" + regex + "\n```")
     global mapping
     mapping[react] = regex
+    save_regex(mapping)
+
+@client.command(name="del_react")
+@is_owner()
+async def del_regex(ctx, react):
+    """Delete a regex pattern
+
+    Args:
+        react (str): The reaction to delete
+    """
+    await ctx.respond("Deleted regex pattern for reaction: " + react)
+    global mapping
+    mapping.pop(react, None)
     save_regex(mapping)
 
 @client.command(name="get_regex")
