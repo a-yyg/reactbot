@@ -64,14 +64,14 @@ def load_regex(mapping: list):
         for line in f:
             if line == "" or line == "\n":
                 continue
-            (react, regex) = line.split("=", 1)
+            (react, regex) = line.strip().split("=", 1)
             print("Loaded regex: " + regex + " for reaction: " + react)
             mapping[react] = regex
 
 def main():
     global client
     global mapping
-    regex_pattern = load_regex(mapping)
+    load_regex(mapping)
 
     client.run(config("TOKEN"))
 
